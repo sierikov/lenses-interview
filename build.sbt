@@ -1,3 +1,5 @@
+val http4sVersion = "0.23.30"
+
 lazy val root = (project in file("."))
   .aggregate(dataGenerator, common, dataForwarder)
   .settings(
@@ -23,7 +25,15 @@ lazy val common = (project in file("common"))
 lazy val dataGenerator = (project in file("data-generator"))
   .settings(
     name := "data-generator",
-    libraryDependencies ++= Seq()
+    libraryDependencies ++= Seq(
+      "com.github.fd4s" %% "vulcan" % "1.11.1",
+      "com.github.fd4s" %% "vulcan-generic" % "1.11.1",
+      "org.http4s" %% "http4s-core"         % http4sVersion,
+      "org.http4s" %% "http4s-client"       % http4sVersion,
+      "com.github.fd4s" %% "fs2-kafka" % "3.6.0",
+      "org.typelevel" %% "cats-effect" % "3.5.7",
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+    )
   )
   .dependsOn(common)
 

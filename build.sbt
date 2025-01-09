@@ -32,13 +32,10 @@ lazy val dataGenerator = (project in file("data-generator"))
     libraryDependencies ++= Seq(
       "com.github.fd4s" %% "vulcan" % "1.11.1",
       "com.github.fd4s" %% "vulcan-generic" % "1.11.1",
-      "org.http4s"    %% "http4s-ember-client" % http4sVersion,
-      "org.http4s"    %% "http4s-core"          % http4sVersion,
       "org.typelevel" %% "log4cats-slf4j"      % "2.7.0",
       "ch.qos.logback" % "logback-classic" % "1.5.16",
       "com.github.fd4s" %% "fs2-kafka" % "3.6.0",
       "com.github.fd4s" %% "fs2-kafka-vulcan" % "3.6.0",
-      "io.confluent" % "kafka-schema-registry-client" % "7.6.0",
       "org.typelevel" %% "cats-effect" % "3.5.7",
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     )
@@ -48,6 +45,28 @@ lazy val dataGenerator = (project in file("data-generator"))
 lazy val dataForwarder = (project in file("data-forwarder"))
   .settings(
     name := "data-forwarder",
-    libraryDependencies ++= Seq()
+    libraryDependencies ++= Seq(
+      // avro
+      "com.github.fd4s" %% "vulcan" % "1.11.1",
+      "com.github.fd4s" %% "vulcan-generic" % "1.11.1",
+      // loging
+      "org.typelevel" %% "log4cats-slf4j"      % "2.7.0",
+      "ch.qos.logback" % "logback-classic" % "1.5.16",
+      // kafka
+      "com.github.fd4s" %% "fs2-kafka" % "3.6.0",
+      "com.github.fd4s" %% "fs2-kafka-vulcan" % "3.6.0",
+      // effect
+      "org.typelevel" %% "cats-effect" % "3.5.7",
+
+      // http
+      "org.http4s"            %% "http4s-ember-client"  % "0.23.30",
+      "org.http4s"            %% "http4s-circe"         % "0.23.30",
+      // Circe core
+      "io.circe"              %% "circe-core"           % "0.14.10",
+      "io.circe"              %% "circe-generic"        % "0.14.10",
+      "io.circe"              %% "circe-parser"         % "0.14.10",
+
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+    )
   )
   .dependsOn(common)

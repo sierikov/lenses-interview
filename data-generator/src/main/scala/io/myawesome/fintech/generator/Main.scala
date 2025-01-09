@@ -54,7 +54,7 @@ object Main extends IOApp.Simple {
           generator.generate.flatMap { record =>
             logger.info(s"Produced $record") *>
               producer.produce(
-                ProducerRecords.one(ProducerRecord("test-click-topic4", record.session_id, record))
+                ProducerRecords.one(ProducerRecord(Config.kafkaEventTopic, record.session_id, record))
               )
           }
         }.drain

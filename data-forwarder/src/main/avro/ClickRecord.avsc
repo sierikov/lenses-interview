@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "ClickRecord",
-  "namespace": "io.myawesome.fintech.common",
+  "namespace": "io.myawesome.fintech.avro",
   "fields": [
     {
       "name": "session_id",

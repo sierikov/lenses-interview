@@ -68,5 +68,5 @@ class LimitedRandomClickRecordGenerator[F[_]: Monad](using random: Random[F])
 object LimitedRandomClickRecordGenerator {
 
   def make[F[_]: Monad: Random]: ClickRecordGenerator[F] = LimitedRandomClickRecordGenerator[F]
-  
+
 }

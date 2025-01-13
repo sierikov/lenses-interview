@@ -5,7 +5,7 @@ import org.scalacheck.Gen
 
 object ClickRecordGen {
   val uuidGen: Gen[String] = Gen.uuid.map(_.toString)
-  
+
   val ipGenOpt: Gen[Option[String]] = Gen.option {
     for {
       a <- Gen.choose(0, 255)
@@ -17,9 +17,9 @@ object ClickRecordGen {
 
   def randomString(maxSize: Int): Gen[String] = for {
     length <- Gen.choose(5, maxSize)
-    chars <- Gen.listOfN(length, Gen.alphaNumChar)
+    chars  <- Gen.listOfN(length, Gen.alphaNumChar)
   } yield chars.mkString
-  
+
   val clickRecordGen: Gen[ClickRecord] = for {
     sessionId <- uuidGen
     browser   <- Gen.option(randomString(20))

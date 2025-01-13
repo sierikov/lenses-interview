@@ -8,7 +8,7 @@ import io.myawesome.fintech.avro.ClickRecord
 class RandomClickRecordGenerator[F[_]: Monad] extends ClickRecordGenerator[F] {
 
   override def generateOne: F[ClickRecord] = ClickRecordGen.clickRecordGen.sample.get.pure[F]
-  
+
 }
 
 object RandomClickRecordGenerator {

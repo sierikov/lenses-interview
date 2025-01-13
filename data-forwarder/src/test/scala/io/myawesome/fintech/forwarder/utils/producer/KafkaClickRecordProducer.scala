@@ -1,7 +1,7 @@
 package io.myawesome.fintech.forwarder.utils.producer
 
 import cats.effect.*
-import cats.syntax.all.* 
+import cats.syntax.all.*
 import cats.effect.syntax.all.*
 import fs2.kafka.vulcan.AvroSettings
 import fs2.kafka.vulcan.SchemaRegistryClientSettings

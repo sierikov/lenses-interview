@@ -3,8 +3,14 @@ package io.myawesome.fintech.forwarder.utils.mock
 import cats.data.Kleisli
 import cats.effect.*
 import cats.effect.syntax.all.*
-import cats.effect.kernel.{Ref, Resource}
-import org.http4s.{EntityDecoder, HttpApp, Request, Response, Status, Uri}
+import cats.effect.kernel.Ref
+import cats.effect.kernel.Resource
+import org.http4s.EntityDecoder
+import org.http4s.HttpApp
+import org.http4s.Request
+import org.http4s.Response
+import org.http4s.Status
+import org.http4s.Uri
 import org.http4s.client.Client
 
 case class HttpClientMock[F[_]](

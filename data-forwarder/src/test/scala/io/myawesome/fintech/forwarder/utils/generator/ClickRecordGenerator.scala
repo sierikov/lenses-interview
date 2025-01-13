@@ -13,7 +13,8 @@ trait ClickRecordGenerator[F[_]: Applicative] {
 }
 
 object ClickRecordGenerator {
-  def apply[F[_]: Applicative](using
-      ev: ClickRecordGenerator[F]
+  def apply[F[_]: Applicative](
+    using
+    ev: ClickRecordGenerator[F],
   ): ClickRecordGenerator[F] = ev
 }

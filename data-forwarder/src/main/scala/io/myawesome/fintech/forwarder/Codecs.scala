@@ -1,6 +1,7 @@
 package io.myawesome.fintech.forwarder
 
-import io.circe.{Decoder, Encoder}
+import io.circe.Decoder
+import io.circe.Encoder
 import io.circe.generic.semiauto.*
 import io.myawesome.fintech.avro.ClickRecord
 import org.apache.avro.Schema

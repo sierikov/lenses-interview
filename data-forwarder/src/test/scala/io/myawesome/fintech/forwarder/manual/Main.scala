@@ -4,8 +4,10 @@ import cats.effect.*
 import cats.effect.std.Random
 import cats.syntax.all.*
 import fs2.Stream
-import io.myawesome.fintech.forwarder.utils.generator.{ClickRecordGenerator, LimitedRandomClickRecordGenerator}
-import io.myawesome.fintech.forwarder.utils.producer.{ClickRecordProducer, KafkaClickRecordProducer}
+import io.myawesome.fintech.forwarder.utils.generator.ClickRecordGenerator
+import io.myawesome.fintech.forwarder.utils.generator.LimitedRandomClickRecordGenerator
+import io.myawesome.fintech.forwarder.utils.producer.ClickRecordProducer
+import io.myawesome.fintech.forwarder.utils.producer.KafkaClickRecordProducer
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 

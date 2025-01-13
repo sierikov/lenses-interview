@@ -1,6 +1,7 @@
 package io.myawesome.fintech.forwarder.utils.containers
 
-import com.dimafeng.testcontainers.{ContainerDef, SingleContainer}
+import com.dimafeng.testcontainers.ContainerDef
+import com.dimafeng.testcontainers.SingleContainer
 import io.myawesome.fintech.forwarder.utils.containers.TestElasticContainer
 import org.testcontainers.elasticsearch.ElasticsearchContainer as JavaElasticsearchContainer
 import org.testcontainers.utility.DockerImageName

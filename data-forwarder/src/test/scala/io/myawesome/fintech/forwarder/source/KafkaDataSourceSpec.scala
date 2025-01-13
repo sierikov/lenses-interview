@@ -19,8 +19,8 @@ class KafkaDataSourceSpec extends AsyncFreeSpec with Matchers with TestContainer
   override def startContainers(): Containers = {
     val kafkaContainer = TestKafkaContainer.Def().start()
     val schemaRegistryContainer = SchemaRegistryContainer.Def(
-      kafkaContainer.network, 
-      kafkaContainer.networkAliases.head
+      kafkaContainer.network,
+      kafkaContainer.networkAliases.head,
     ).start()
 
     kafkaContainer and schemaRegistryContainer

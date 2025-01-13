@@ -7,7 +7,7 @@ import com.dimafeng.testcontainers.SchemaRegistryContainer
 import com.dimafeng.testcontainers.lifecycle.and
 import com.dimafeng.testcontainers.scalatest.TestContainersForEach
 import io.myawesome.fintech.forwarder.utils.producer.KafkaClickRecordProducer
-import io.myawesome.fintech.forwarder.utils.TestKafkaContainer
+import io.myawesome.fintech.forwarder.utils.containers.TestKafkaContainer
 import io.myawesome.fintech.forwarder.utils.generator.RandomClickRecordGenerator
 import org.scalatest.freespec.AsyncFreeSpec
 import org.scalatest.matchers.should.Matchers

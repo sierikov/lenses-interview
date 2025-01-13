@@ -34,7 +34,7 @@ object Main extends IOApp.Simple {
     generator: ClickRecordGenerator[IO],
   ): Stream[IO, Unit] =
     Stream
-      .awakeEvery[IO](2.seconds)
+      .awakeEvery[IO](ManualConfig.period)
       .evalMap { _ =>
         generator.generateOne.flatMap { record =>
           logger.info(s"Produced $record") *> producer.send(record)

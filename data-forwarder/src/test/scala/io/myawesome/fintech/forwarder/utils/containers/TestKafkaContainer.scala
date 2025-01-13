@@ -1,4 +1,4 @@
-package io.myawesome.fintech.forwarder.utils
+package io.myawesome.fintech.forwarder.utils.containers
 
 import com.dimafeng.testcontainers.ContainerDef
 import com.dimafeng.testcontainers.SingleContainer

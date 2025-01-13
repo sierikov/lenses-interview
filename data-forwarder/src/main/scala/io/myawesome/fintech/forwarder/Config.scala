@@ -1,12 +1,12 @@
 package io.myawesome.fintech.forwarder
 
-// TODO: make with pureconfig
-object Config {
-  val bootstrapServers  = "localhost:9092"
-  val schemaRegistryUrl = "http://localhost:8081"
-  val elasticHost       = "localhost"
-  val elasticPort       = 9200
+import io.myawesome.fintech.forwarder.forward.ForwarderService
+import io.myawesome.fintech.forwarder.sink.ElasticSink
+import io.myawesome.fintech.forwarder.source.KafkaDataSource
+import pureconfig.*
 
-  val kafkaGroupId    = "forwarder-group"
-  val kafkaEventTopic = "my-clicks"
-}
+case class Config(
+  sourceConfig:    KafkaDataSource.Config,
+  sinkConfig:      ElasticSink.Config,
+  forwarderConfig: ForwarderService.Config,
+) derives ConfigReader

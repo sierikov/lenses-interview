@@ -1,6 +1,5 @@
 package io.myawesome.fintech.forwarder.forward
 
-import fs2.Stream
 import io.myawesome.fintech.forwarder.sink.Sink
 import io.myawesome.fintech.forwarder.source.Source
 

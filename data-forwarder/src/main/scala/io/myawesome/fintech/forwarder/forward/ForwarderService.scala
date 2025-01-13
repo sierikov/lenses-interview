@@ -12,13 +12,16 @@ import fs2.Chunk
 import fs2.kafka.CommittableOffsetBatch
 import org.typelevel.log4cats.Logger
 
-import scala.concurrent.duration.DurationInt
+import scala.concurrent.duration.FiniteDuration
 
 class ForwarderService[F[_]: Async](
+  batchSize:    Int,
+  batchTimeout: FiniteDuration,
+)(
   using
   logger: Logger[F],
 ) extends Forwarder[F, String, ClickRecord] {
-  
+
   def forward(
     source: Source[F, String, ClickRecord],
     sink:   Sink[F, ClickRecord],
@@ -33,7 +36,7 @@ class ForwarderService[F[_]: Async](
     partitionStream: Stream[F, DataRecord[F, String, ClickRecord]],
     sink:            Sink[F, ClickRecord],
   ) = partitionStream
-    .groupWithin(10, 20.seconds)
+    .groupWithin(batchSize, batchTimeout)
     .evalMap(c => if (c.isEmpty) Concurrent[F].unit else processChunk(c, sink))
     .compile
     .drain
@@ -49,6 +52,16 @@ class ForwarderService[F[_]: Async](
 }
 
 object ForwarderService {
-  def make[F[_]:         Async: Logger]: ForwarderService[F]              = new ForwarderService[F]
-  def makeResource[F[_]: Async: Logger]: Resource[F, ForwarderService[F]] = make[F].pure[F].toResource
+  final case class Config(
+    batchSize:    Int,
+    batchTimeout: FiniteDuration,
+  )
+
+  def make[F[_]: Async: Logger](config: Config): ForwarderService[F] = new ForwarderService[F](
+    config.batchSize,
+    config.batchTimeout,
+  )
+
+  def makeResource[F[_]: Async: Logger](config: Config): Resource[F, ForwarderService[F]] =
+    make[F](config).pure[F].toResource
 }

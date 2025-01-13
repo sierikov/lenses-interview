@@ -5,6 +5,7 @@ import cats.syntax.all.*
 import io.circe.syntax.*
 import io.myawesome.fintech.avro.ClickRecord
 import io.myawesome.fintech.forwarder.Codecs.given
+import io.myawesome.fintech.forwarder.exceptions.UpdateIndexException
 import io.myawesome.fintech.forwarder.sink.ElasticSink.createIndex
 import org.http4s.*
 import org.http4s.client.Client
@@ -28,13 +29,14 @@ final class ElasticSink[F[_]: Async](
   // 1 request per index
   def sendBatch(events: List[(Instant, ClickRecord)]): F[Unit] =
     events
-      .groupBy { case (timestamp, _) =>
-        createIndex(config.indexName, timestamp)
+      .foldLeft(Map.empty[String, List[ClickRecord]]) { (acc, event) =>
+        val (timestamp, record) = event
+        val index               = createIndex(config.indexName, timestamp)
+        acc.updated(index, acc.getOrElse(index, List.empty) :+ record)
       }
       .toList
-      .traverse_ { case (index, events) =>
-        val records = events.map(_._2)
-        val req     = createBulkRequest(index, records)
+      .traverse_ { case (index, records) =>
+        val req = createBulkRequest(index, records)
         client.run(req).use(handleBulkResponse)
       }
 
@@ -58,7 +60,7 @@ final class ElasticSink[F[_]: Async](
       logger.info("Successfully send a batch for index!") *> Async[F].unit
     else
       Async[F].raiseError(
-        new RuntimeException(s"Failed to index documents. Status: ${resp.status}"),
+        UpdateIndexException(s"Failed to index documents. Status: ${resp.status}"),
       )
 }
 

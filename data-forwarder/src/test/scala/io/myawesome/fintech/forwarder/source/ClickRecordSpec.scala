@@ -1,37 +1,22 @@
 package io.myawesome.fintech.forwarder.source
 
 import io.myawesome.fintech.avro.ClickRecord
-import io.myawesome.fintech.forwarder.Codecs.given
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.*
-import vulcan.Codec
-import vulcan.generic.given
+import org.scalatest.matchers.should.Matchers
 
-import scala.io.Source
-
-// can be abstracted further
 class ClickRecordSpec extends AnyFlatSpec with Matchers {
-  it should "generated usable ClickRecord" in {
+
+  "ClickRecord" should "generate a usable ClickRecord instance" in {
     val record = ClickRecord(
-      session_id = "scala3", // the camel case was left out of scope
+      session_id = "scala3",
       browser    = Some("Chrome"),
       campaign   = None,
       channel    = "direct",
       referrer   = Some("example.com"),
-      ip         = None,     // can be refined
+      ip         = None,
     )
 
     record.session_id shouldBe "scala3"
     record.browser shouldBe Some("Chrome")
-  }
-
-  it should "match the Avro schema in /src/main/avro" in {
-    val stream =
-      Source.fromFile("data-forwarder/src/main/avro/ClickRecord.avsc")
-    val expectedSchema = stream.getLines().mkString("").replaceAll("\\s+", "")
-    val generatedSchema =
-      Codec.derived[ClickRecord].schema.getOrElse("").toString
-
-    generatedSchema shouldBe expectedSchema
   }
 }

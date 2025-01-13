@@ -1,4 +1,4 @@
-package io.myawesome.fintech.forwarder
+package io.myawesome.fintech.forwarder.source
 
 import io.myawesome.fintech.avro.ClickRecord
 import io.myawesome.fintech.forwarder.Codecs.given

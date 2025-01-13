@@ -1,7 +1,6 @@
 package io.myawesome.fintech.forwarder.source
 
 import fs2.Stream
-import fs2.kafka.CommittableConsumerRecord
 
 /** Abstract source of data events
   * @tparam F
@@ -14,8 +13,6 @@ import fs2.kafka.CommittableConsumerRecord
 trait Source[F[_], K, V] {
 
   /** Creates a stream of streams of event from id
-    * @param id
-    *   id of partition of origin of data (for example topic name)
     */
-  def consume(id: String): Stream[F, Stream[F, CommittableConsumerRecord[F, K, V]]]
+  def consume: Stream[F, Stream[F, DataRecord[F, K, V]]]
 }

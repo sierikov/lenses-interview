@@ -1,6 +1,6 @@
-package io.myawesome.fintech.generator
+package io.myawesome.fintech.forwarder.manual
 
-object Config {
+object ManualConfig {
   val bootstrapServers = "localhost:9092"
   val schemaRegistryUrl = "http://localhost:8081"
   val kafkaEventTopic = "my-clicks"

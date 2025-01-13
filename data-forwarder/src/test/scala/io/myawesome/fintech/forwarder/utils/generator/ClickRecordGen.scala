@@ -1,4 +1,4 @@
-package io.myawesome.fintech.generator
+package io.myawesome.fintech.forwarder.utils.generator
 
 import io.myawesome.fintech.avro.ClickRecord
 import org.scalacheck.Gen
